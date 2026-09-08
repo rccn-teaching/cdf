@@ -25,8 +25,6 @@ Reach for Rhino when your design is **not one of Revit's nouns**: double
 curvature, fast massing, continuous variation across a facade, anything headed
 for a machine, or messy inbound survey data.
 
-Do *not* reach for it to coordinate services or hold a model thirty consultants
-edit. It will not stop you, which is the danger.
 
 ## 2. How you drive Rhino — the command line
 
@@ -40,16 +38,13 @@ autocompletes, and the options appear as clickable words in the command line.
 | Key | Does |
 | --- | --- |
 | <kbd>Enter</kbd> / <kbd>Space</kbd> / right-click | **repeat the last command** — the single biggest time saver |
-| <kbd>Esc</kbd> | cancel the current command |
 | <kbd>Tab</kbd> | autocomplete the command name |
-| <kbd>F1</kbd> | help for the command you are in |
 | <kbd>F6</kbd> | show/hide the **camera** widget |
 | <kbd>F10</kbd> / <kbd>F11</kbd> | control points on / off |
-| <kbd>Ctrl</kbd>+<kbd>Z</kbd> · <kbd>Ctrl</kbd>+<kbd>Y</kbd> | undo · redo |
 
 **Read the command line while a command runs.** It is telling you what it wants
-next. Most "Rhino isn't doing anything" moments are a command waiting for input
-nobody read.
+next.
+And options has hot keys too some are time saver. e.g.: rotate and copy
 
 ### Aliases
 
@@ -64,6 +59,14 @@ c    _Circle        cp   _Copy           w    _What
 
 The leading underscore makes an alias work regardless of interface language.
 Five aliases you actually use beat fifty you do not.
+
+Check manual for detailed macro syntax. 
+
+## Modelling Aids
+
+- Gumball (toggle, type, and alt to replicate)
+- Snap: types and projects and hotkeys
+- Angle snap (in options and how to switch)
 
 ## 3. What things are — the data types
 
@@ -90,7 +93,9 @@ A solid is **a polysurface that happens to be closed** — every edge shared by
 exactly two faces, no gaps. That is the entire meaning of the word in Rhino,
 and it is why `Cap` is how most solids actually get made.
 
-### Mesh, briefly
+Explode a solid, join again, and see type changes.
+
+### Mesh
 
 A mesh has no curves in it at all — just vertices and flat faces. It is what a
 3D printer and a game engine consume, what a scanner produces, and what Rhino
@@ -205,17 +210,15 @@ one. Set it first, from the template.
 
 ## 8. Layers, and nesting them
 
-Number them so they sort in **build order** rather than alphabetically —
-`10_MASSING` sorts above `20_ENVELOPE`; `Massing` and `Envelope` do not.
+Layer could be nested, build your own hierachy according to your workflow.
+Number them if you need.
 
 ```
 00_REF          site, surveys, anything you did not draw
-10_MASSING      the volumes
-20_ENVELOPE     the skin
-  21_PANELS       ← nested: drag a layer onto another
-  22_FRAME
-80_DRAWING      annotation, dimensions, Make2D output
-90_TRASH
+10_1F
+  11_Column
+  12_Wall
+  13_Floor
 ```
 
 Per layer you control **on/off**, **lock** (visible, not editable — the right
@@ -223,10 +226,12 @@ answer for reference geometry you keep clicking by accident), **colour**,
 **print width** and **print colour** (independent of what you see on screen),
 material and linetype.
 
-**Nested layers**: parent visibility governs children, so the whole envelope
+**Nested layers**: parent visibility governs children, so the whole 1F
 hides in one click.
 
 **Nothing lives on `Default`.** Default is where geometry goes to be forgotten.
+
+Use Layer states to have on off preset, like 1F, 2F, for quicker switch.
 
 ## 9. Getting the view you want
 
@@ -246,17 +251,27 @@ second viewport. Very few people know it is there.
 - **Display modes** — `Wireframe`, `Shaded`, `Ghosted`, `Technical`, `Pen`,
   `Arctic`. `Technical` and `Pen` give you a line drawing live in the viewport
 
+target is where the cam rotate, some time lost, use `ZS` `ZSA` to get camera back.
+
 ### CPlanes
 
 The **construction plane** is the coordinate system you draw on. In Top view it
 is world XY; in a perspective view it is whatever you last set.
 
+create cplane for each floor's base reference point, dont move floor plans around
+(single source of truth, so you never lose site info (by not copy them around too)
+combine layer state to switch around. use this so projection works on each floor.
+
+for elevation you can create cplanes too, or you need to work on a wanky angle (like tilted rood)
+
 ```
 CPlane ▸ Object     align to a face, then draw directly on it
 CPlane ▸ 3 Point    define it by picking
 CPlane ▸ Save/Restore   name the ones you reuse
-Plan                look straight down the current CPlane
+Plan                look straight down the current CPlane (default except perspective)
 ```
+
+combine named view, layer state, and cplane to create different work env.
 
 **`CPlane ▸ Object` then `Plan` is the pairing that matters**: set the CPlane on
 a sloped face, look straight down it, and work on that face as though it were
@@ -266,20 +281,6 @@ The **gumball follows the active CPlane** by default. When it points somewhere
 unexpected, that is nearly always why.
 
 ---
-
-## Do this before Week 02
-
-1. **Set five aliases** you will actually use.
-2. **Build one closed solid** — any shape, `Cap`ped, that survives a
-   `BooleanUnion` with a second one.
-3. **Trim a surface, then `Untrim` it.** Turn control points on first and watch
-   where they are. This is the week's idea in one gesture.
-4. **Set up your layer structure**, numbered and nested, nothing on `Default`.
-5. **Save three named views** and one custom CPlane.
-6. Run the [self-check](/SELF-CHECK.md) — eight commands, two minutes.
-
-Bring the file to Week 02. We will run `SelBadObjects` on it and something will
-light up.
 
 ## Commands
 
