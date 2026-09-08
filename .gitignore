@@ -1,0 +1,44 @@
+# Rhino / Grasshopper working files
+*.3dmbak
+*.rhl
+*.ghx.bak
+*_backup.3dm
+*.tmp
+
+# Rhino autosave and worksession scratch
+AutoSave/
+*.3dm.rhl
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.python-version
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.*.sw?
+
+# Student submissions are committed deliberately -- see Lecture/*/submission/
+# but never their Rhino backups:
+Lecture/*/submission/*.3dmbak
+
+# Large exports nobody needs in git
+*.3ds
+*.obj
+*.stl
+*.fbx
+!Reference/**/*.obj
+
+# AI assistant guidance
+CLAUDE.md
+claude.md
+
