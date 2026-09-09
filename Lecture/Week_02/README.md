@@ -121,15 +121,6 @@ callback.
 
 ---
 
-## Do this before Week 03
-
-1. Rebuild your Week 01 awkward element **from clean curves**, and check it with
-   `Zebra`.
-2. One **double-curved surface** that passes `Zebra` without a kink.
-3. One **closed solid** made with `Cap`, filleted on at least two edges.
-4. Use `CurveBoolean` at least once, on purpose.
-5. [Self-check](/SELF-CHECK.md) clean.
-
 ## Commands
 
 The commands this week centres on. If one of these is not covered by the prose above, that's a signal to teach it — the list here is the week's source of truth for what students walk in expecting to use.

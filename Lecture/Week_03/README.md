@@ -109,14 +109,6 @@ which is which. Put faked geometry on its own layer and it stays honest.
 
 ---
 
-## Do this before Week 04
-
-1. Reorganise your model: **numbered, nested layers**, lock and colour in use.
-2. Make one repeated element a **block** and place it at least three times.
-3. **Name** the objects a Grasshopper definition would need to find.
-4. Run the whole hygiene list. Fix what it finds.
-5. Write one sentence in your file notes: *what did I fake, and why?*
-
 ## Commands
 
 The commands this week centres on. If one of these is not covered by the prose above, that's a signal to teach it — the list here is the week's source of truth for what students walk in expecting to use.

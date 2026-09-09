@@ -20,9 +20,7 @@ They become good by having built the same kind of thing enough times that their
 hands go to the right component without asking. That is why most Grasshopper
 sessions are **builds**, not lectures — see [Three goals](#three-goals).
 
-* TBC-COURSE-CODE · **TBC-DAY TBC-TIME** · TBC-ROOM
-* First session **TBC-DATE** · Office hour TBC · TBC-EMAIL
-* **New here? → [Setup](SETUP.md)** · stuck? → [Troubleshooting](TROUBLESHOOTING.md)
+* ARCH2022 · **WED 10:10-12:00** · Computer Lab
 
 ---
 
@@ -61,7 +59,6 @@ two weeks because one is a lie.
 | **14** | **Fabrication prep: unroll, nest, label**<br>👉[Lecture](/Lecture/Week_14/README.md)<br>🎬[Slides](https://slides.rccn.dev/courses/CDF/CDF-W14/) | · unrolling from Grasshopper; developable vs not<br>· nesting, sheet efficiency, material constraints as inputs<br>· labelling — identity surviving to the cut file<br>· tolerance and kerf: the gap between model and machine | 🎓 **iteration 2** — fabricable, scheduled, unrolled |
 | **15** | **Definition hygiene and performance**<br>👉[Lecture](/Lecture/Week_15/README.md)<br>🎬[Slides](https://slides.rccn.dev/courses/CDF/CDF-W15/) | · group, name, colour — lay out a definition to be read<br>· internalise data; make the file open elsewhere<br>· what is actually slow: previews, recomputation, huge trees<br>· the review question: could someone else drive this? | Clean your definition for a reader · 📚 **library recipe** · pod review |
 
-> **How to change this schedule.** The **Concepts** column here is the week's topic outline — the syllabus preview students see up front. The **actual commands** taught each week live in a `## Commands` section inside `Lecture/Week_NN/README.md`, not in this table — the lecture page is the source of truth. Edit either; keep them roughly in step (a bullet added to Concepts usually means a command or two added to that week's page). Deck: `slides/courses/CDF/CDF-WNN.md`.
 
 ### Part IV — Build (W16–W18)
 
@@ -75,7 +72,7 @@ two weeks because one is a lie.
 
 ## How this course is assessed
 
-**The project is your grade — 100%.** There is no exam.
+**The project is your grade — 100%.** There is no exam nor roll-call
 
 The Rhino work in Weeks 01–05 is not scored, but it is a **required gate**: your
 Week 05 model becomes your project base, and everything after Week 06 assumes a
@@ -101,128 +98,3 @@ someone else drive this?* At the review: **can you?**
 You will have had an assistant, a forum and fifty tutorials open all semester,
 and so will everyone you ever work with. Pretending otherwise would measure your
 willingness to play along rather than your ability. So the position is simple:
-
-> **Anything you hand in can be helped. Nothing you say out loud can be.**
-
-Take all the help you like, in whatever form leaves you able to drive the result
-and say why it is that way. A definition you cannot explain scores as though you
-had not submitted it — which is a statement about evidence, not about your
-character, and requires nobody to accuse anybody of anything.
-
-No AI detectors are used in this course. They are unreliable and they poison the
-thing they are meant to protect.
-
-## The problem with 50 students
-
-You learn this on your own project. There are fifty of you and one of me, so
-"bring your own project and I will help" does not work — a demo that answers
-your question is thirty minutes of everyone else waiting.
-
-So the course splits the difference:
-
-**One brief, fifty variants.** Everyone solves the same problem, and each of you
-gets a different site strip, orientation and programme. Because the problem is
-shared, every demo transfers to everybody. Because the variant is yours, the
-design decisions are yours and no two submissions look alike.
-
-**Pods of five.** From Week 03 you belong to a pod. Your pod reviews each
-other's work before it reaches me, which turns 1:50 into an effective 1:4. Each
-week one pod question comes to class — chosen by the pod, asked out loud.
-
-**The pattern library.** Every student contributes one working, documented
-definition to a shared class library. Fifty students produce fifty teaching
-artefacts, and the library is yours to keep. Contributing is part of the gate.
-
-**Clinics, not tutorials.** Weeks 10, 15 and 16 are pod clinics: fifteen minutes
-per pod, in front of the room. You will get less individual attention than you
-want and more useful attention than a private tutorial would give you, because
-four other people's problems will turn out to be yours too.
-
-## Three goals
-
-Most Grasshopper sessions run on the same format, and it is the reason to come.
-
-Each session has **three goals**, each stated as a **data flow** — what has to
-happen, not which components to use. They escalate:
-
-1. **Together.** I build, you build, at the same time. Not copying a screenshot
-   — building, at the pace of someone explaining. If you fall behind, say so;
-   that is data, not failure.
-2. **In pairs.** One drives, one navigates. Swap halfway. The navigator's job is
-   to be right, not polite.
-3. **Alone.** From the diagram only, ~15 minutes, from an empty canvas.
-
-Goal 3 is the one that does the work, and the one people want to skip. Being
-able to follow along is not the same as being able to build it, and the gap
-between those two is exactly where the confidence you need comes from.
-
-Each week's goals are in `Lecture/Week_NN/goals.md`. Read them before class.
-
-### Why you never get the `.gh` file
-
-A goal looks like this:
-
-```mermaid
-flowchart LR
-    S["a surface"] --> D["divide into a UV grid"]
-    D --> A["distance to an attractor"]
-    A --> R["remap to a range you choose"]
-    R --> O["an aperture at each node"]
-```
-
-Notice what it does not say: no component names, no wiring, no plugin. It states
-the **problem** at the level you can solve independently.
-
-That is deliberate, for three reasons. A `.gh` file **cannot be read** — opening
-one shows a canvas in the order someone happened to place things, and working
-out the intent takes longer than rebuilding it. It **cannot be versioned** —
-it is binary, so git records that something changed and never what. And if the
-point is for you to learn the definition, **handing you the file removes the
-only part that teaches.**
-
-So two people given the same goal will build different definitions that both
-satisfy it. Comparing those two is where the useful conversation is, and it is
-what pod review is for.
-
-The general version of this argument, and how to document your own work:
-[rccn wiki → Describing a Definition](https://kb.rccn.dev/computation/rhino-grasshopper/grasshopper/describing-a-definition).
-
-Goals come back. Something you built in Week 06 reappears in Week 10 with one
-box changed. That spacing is deliberate.
-
-## AI
-
-Not prohibited, and not the point.
-
-Grasshopper is a visual language, and the assistants are markedly weaker at it
-than at Python — they will confidently describe components that do not exist and
-wirings that cannot work. Treat anything one tells you about Grasshopper as a
-hypothesis to test on the canvas, not as an answer.
-
-Where it genuinely helps: explaining an error you do not recognise, suggesting
-what a component is called when you know what you want but not its name, working
-through the maths behind a remap, and drafting the written parts of your
-submission. Use it for those.
-
-The one hard rule is the same as everywhere else here: **you explain what you
-submit.** At the final review the definition gets opened and you get asked why a
-component is there. "It was in the file I found" is not an answer, whether the
-file came from a model, a forum, or a friend.
-
-This course teaches components, not code. If you want to write scripts —
-Python inside Grasshopper, or COMPAS outside it — that is
-[DCCG](https://github.com/raccoon-ncku/DCCG), and it pairs well with this one.
-
-General guidance, not course-specific:
-[rccn wiki → AI Assistants](https://kb.rccn.dev/computation/ai-assistants).
-
-## Where things live
-
-| | |
-| --- | --- |
-| **This repo** | the course — schedule, week-by-week lectures, checkpoints, the brief |
-| [**rccn wiki**](https://kb.rccn.dev/computation/rhino-grasshopper) | the reference — Rhino and Grasshopper how-to that outlives any one semester |
-| **Slides** | the room — what happens in the session, and nothing you need afterwards |
-
-If a fact is true regardless of this course, it belongs on the wiki and this
-repo links to it. That is why the lectures are shorter than you expect.

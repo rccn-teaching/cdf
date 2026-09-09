@@ -44,7 +44,11 @@ autocompletes, and the options appear as clickable words in the command line.
 
 **Read the command line while a command runs.** It is telling you what it wants
 next.
-And options has hot keys too some are time saver. e.g.: rotate and copy
+
+**Command options have hotkeys too.** While a command is running, each option
+in the prompt has a letter shown as its shortcut — press it instead of
+clicking. `Rotate` ▸ *Copy* is `C`; `Move` ▸ *Vertical* is `V`. Small effort,
+big saving.
 
 ### Aliases
 
@@ -60,13 +64,46 @@ c    _Circle        cp   _Copy           w    _What
 The leading underscore makes an alias work regardless of interface language.
 Five aliases you actually use beat fifty you do not.
 
-Check manual for detailed macro syntax. 
+Aliases can also run **macros** — a chain of commands with typed input,
+useful for repetitive setups. Check the Rhino help under *Aliases* for the
+macro syntax when you need it.
 
-## Modelling Aids
+## Modelling aids
 
-- Gumball (toggle, type, and alt to replicate)
-- Snap: types and projects and hotkeys
-- Angle snap (in options and how to switch)
+Three things live outside a command but change how every command behaves.
+Turn each one on for the section of the model where it helps and off when
+it stops helping — none of them are meant to be always on.
+
+### The gumball
+
+Toggle with the icon in the status bar (or `Gumball`). Click a handle to
+drag; **type a distance** while dragging to move exactly that far; hold
+<kbd>Alt</kbd> while dragging to **copy** instead of move. It follows the
+active CPlane (§9), which is why setting a CPlane first is often the
+difference between a natural drag and a wrong one.
+
+### Object snaps
+
+**Osnaps** — `End`, `Mid`, `Cen`, `Int`, `Perp`, `Tan`, `Quad`, `Near`,
+`Node`, `Point` — sit in a bar at the bottom and are persistent. **Turn on
+only what you need**; every osnap on at once means several compete for
+the same click and you pick the wrong one silently.
+
+**`Project` on the osnap bar** is the trap: it forces every snapped point
+onto the CPlane. Either exactly what you want (drawing plans), or the
+reason everything landed at `z = 0` when you meant to snap in 3D. Know
+which state it is in.
+
+### Angle snap and Ortho
+
+**`Ortho`** (hold <kbd>Shift</kbd>) constrains movement to the CPlane axes.
+**Angle snap** — *Options ▸ Modeling Aids ▸ Snap* — snaps rotations to a
+fixed increment; toggle with the *Snap* checkbox in the status bar and
+change the increment where you set it. Same for **grid snap** (<kbd>F9</kbd>).
+
+**`SmartTrack`** shows temporary reference lines off snapped points — good
+for lining up something with two things at once without drawing a
+construction line first.
 
 ## 3. What things are — the data types
 
@@ -93,7 +130,10 @@ A solid is **a polysurface that happens to be closed** — every edge shared by
 exactly two faces, no gaps. That is the entire meaning of the word in Rhino,
 and it is why `Cap` is how most solids actually get made.
 
-Explode a solid, join again, and see type changes.
+**`Explode` a solid, then `Join` again**, and watch the reported type change
+in `What`: an `Extrusion` becomes a `Polysurface` becomes a `Closed
+polysurface` once every edge is shared. Same shape on screen — but the name
+is what `Cap`, the booleans, mesh, and export operations actually key on.
 
 ### Mesh
 
@@ -210,8 +250,9 @@ one. Set it first, from the template.
 
 ## 8. Layers, and nesting them
 
-Layer could be nested, build your own hierachy according to your workflow.
-Number them if you need.
+Layers **nest** — drag one onto another to make it a child. Build the
+hierarchy the way your workflow reads. Number the top level if you need it
+to sort in a specific order; otherwise layers sort alphabetically.
 
 ```
 00_REF          site, surveys, anything you did not draw
@@ -219,6 +260,10 @@ Number them if you need.
   11_Column
   12_Wall
   13_Floor
+20_2F
+  21_Column
+  22_Wall
+  23_Floor
 ```
 
 Per layer you control **on/off**, **lock** (visible, not editable — the right
@@ -226,12 +271,15 @@ answer for reference geometry you keep clicking by accident), **colour**,
 **print width** and **print colour** (independent of what you see on screen),
 material and linetype.
 
-**Nested layers**: parent visibility governs children, so the whole 1F
-hides in one click.
+**Parent visibility governs children.** Hiding `10_1F` hides everything under
+it in one click.
 
 **Nothing lives on `Default`.** Default is where geometry goes to be forgotten.
 
-Use Layer states to have on off preset, like 1F, 2F, for quicker switch.
+**Layer states** (`LayerStateManager`) save the whole on/off/lock/colour
+configuration under a name — one state for *1F only*, one for *2F only*, one
+for *structure only*. Switching stops being ten clicks per view; it becomes
+one. Save them as you find them.
 
 ## 9. Getting the view you want
 
@@ -251,34 +299,64 @@ second viewport. Very few people know it is there.
 - **Display modes** — `Wireframe`, `Shaded`, `Ghosted`, `Technical`, `Pen`,
   `Arctic`. `Technical` and `Pen` give you a line drawing live in the viewport
 
-target is where the cam rotate, some time lost, use `ZS` `ZSA` to get camera back.
+**Camera target.** The **target** is the point the view orbits around. Lose
+track of it — pan far, orbit strangely — and further navigation feels
+broken. `ZS` (`ZoomSelected`) puts the target on whatever is selected in the
+current view; `ZSA` (`ZoomSelectedAllViewports`) does it in every viewport
+at once. Fast reset.
 
 ### CPlanes
 
-The **construction plane** is the coordinate system you draw on. In Top view it
-is world XY; in a perspective view it is whatever you last set.
+The **construction plane** is the coordinate system you draw on. In Top view
+it is world XY; in a perspective view it is whatever you last set.
 
-create cplane for each floor's base reference point, dont move floor plans around
-(single source of truth, so you never lose site info (by not copy them around too)
-combine layer state to switch around. use this so projection works on each floor.
+**One CPlane per floor's base reference point.** Rather than copying a floor
+plan to `z = 0` to work on it, leave the plan where it belongs in the model
+and set a CPlane whose origin is that floor's reference. Draw, snap and
+project on that CPlane; the floor stays as the single source of truth. This
+matters most on sites where each floor has a different datum — the moment
+you copy plans around to work at `z = 0`, that reference is lost.
 
-for elevation you can create cplanes too, or you need to work on a wanky angle (like tilted rood)
+Elevations get their own CPlanes too. Anything on an awkward angle — a
+tilted roof, an angled facet — is easier to draw on once a CPlane is
+aligned to it.
 
 ```
-CPlane ▸ Object     align to a face, then draw directly on it
-CPlane ▸ 3 Point    define it by picking
-CPlane ▸ Save/Restore   name the ones you reuse
-Plan                look straight down the current CPlane (default except perspective)
+CPlane ▸ Object          align to a face, then draw directly on it
+CPlane ▸ 3 Point         define it by picking three points
+CPlane ▸ Save/Restore    name the ones you reuse
+Plan                     look straight down the current CPlane
 ```
 
-combine named view, layer state, and cplane to create different work env.
+**Combine `NamedView` + `LayerState` + a saved `CPlane`** and you have a
+named working environment — *"1F structural plan"*, *"north elevation
+detail"*, *"the tilted roof"*. Two clicks to enter one, two clicks to leave.
 
-**`CPlane ▸ Object` then `Plan` is the pairing that matters**: set the CPlane on
-a sloped face, look straight down it, and work on that face as though it were
-flat.
+**`CPlane ▸ Object` then `Plan`** is the pairing that matters: align the
+CPlane to a face, look straight down it, and work as though it were flat.
 
 The **gumball follows the active CPlane** by default. When it points somewhere
 unexpected, that is nearly always why.
+
+### This is a production workflow — use it when it earns its keep
+
+Numbered floors, per-floor CPlanes, saved layer states, named environments —
+this pays off when the model is *going somewhere*. Coordination, fabrication,
+a hand-off, a second person driving it, a Grasshopper definition referencing
+it by name from Week 05. That is when the discipline is worth the setup.
+
+**Rhino is still a rapid prototyping tool**, and that is its other superpower.
+Early massing, quick tests, form-finding, an idea you might throw away in
+five minutes — do those on flat layers, at world coordinates, with the
+gumball on whatever plane it lands on. There is nothing to organise yet, and
+the ceremony would slow you down.
+
+The failure mode is not the one students expect. It is not sloppy files; it
+is files so carefully organised that the designer stops *trying things*.
+**Keep the sketch fast.** Move to the structure above when the design has
+decided what it is, not before — and expect to keep an "experiment" layer or
+a `99_SCRATCH` even in an organised file, for the next idea you want to
+test loosely.
 
 ---
 
