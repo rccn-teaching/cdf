@@ -8,6 +8,99 @@ surfaces. Learn those and the rest of the interface is lookup. Skip them and
 you will spend the semester finding workarounds for behaviour that was never
 mysterious.
 
+**The four-week arc you are entering:**
+
+| Week | You leave able to… |
+| --- | --- |
+| **01 · this week** | navigate Rhino, name the objects it makes, model one closed solid |
+| **02 · next week** | draw clean curves and lift them into surfaces — the making step |
+| **03** | work at scale — selection, blocks, model hygiene, references |
+| **04** | get it out — plans, sections, elevations, dimensions, layouts, PDFs — the **drafting and detailing** week |
+
+By the end of W04 you can rapid-mass an idea, refine it, and produce a
+drawing set. By the end of W15, that same model drives Grasshopper.
+
+---
+
+## 0. First fifteen minutes — getting Rhino to move
+
+**Never opened Rhino before? Start here.** The rest of the page assumes you
+can see the four viewports, orbit them with the mouse, click on an object,
+and press `Ctrl+S`. If any of that is new, spend fifteen minutes on this
+section before the rest.
+
+### 0.1 The four viewports
+
+When you open a new file, the screen is split into four windows:
+
+| | Shows | Reads as |
+| --- | --- | --- |
+| **Top** (upper-left) | looking straight down | your **plan** |
+| **Front** (lower-left) | looking north from the south | your **elevation** |
+| **Right** (lower-right) | looking west from the east | a **section** |
+| **Perspective** (upper-right) | 3D view | how the thing actually looks |
+
+**Double-click a viewport title** to maximise it; double-click again to
+un-maximise. Everything you do in one viewport appears in all four
+simultaneously — that is how you check what you drew looks right from every
+side.
+
+Architecturally: **Top is where you draft, Perspective is where you check,
+Front and Right are where you notice something is at the wrong height.**
+
+### 0.2 Move the view with the mouse
+
+You are always doing one of three things when you are not running a command:
+
+| Mouse action | Does |
+| --- | --- |
+| **Right-drag** (or RMB-drag) | **orbit** in Perspective, **pan** in the parallel viewports |
+| **Shift + right-drag** | **pan** in every viewport (including Perspective) |
+| **Scroll wheel** | **zoom** at the cursor |
+| **Left-click** | **select** an object |
+| **Left-click empty space then drag** | **selection window** (left→right = fully-inside; right→left = anything-it-touches — see W03) |
+
+**`ZE`** (`ZoomExtents`) zooms the current viewport to fit everything;
+**`ZEA`** does it in all four viewports at once. If the view feels broken —
+you cannot find what you drew, the target is stuck in space — `ZEA` is the
+reset. Learn it as a reflex now.
+
+### 0.3 Draw your first thing, look at it, save
+
+Six commands, in order. Type each one; do not hunt for it in a toolbar.
+
+```
+Rectangle          two clicks — one corner, then the opposite corner
+                   (or: type dimensions, e.g., `10<Enter>5<Enter>` for 10×5)
+ExtrudeCrv         click the rectangle, type 3<Enter>  →  a 10×5×3 mass
+ZEA                zoom every viewport to it
+NamedView          save this Perspective view as "hero"
+Ctrl+S             save the file — Rhino uses .3dm; give it a real name, not a number
+Ctrl+Z             undo — the reflex for "wait, no"
+```
+
+That is the **rapid-massing loop** in six commands: draw a footprint,
+extrude, look at it, save. From here everything is refinement — walls
+become `PolySrf`s, the roof becomes an angled surface, an opening becomes
+a `BooleanDifference` with another box. Same six commands underneath.
+
+### 0.4 The habits that make everything faster
+
+Three keys and one habit that pay off for the rest of the term:
+
+- <kbd>Enter</kbd> / <kbd>Space</kbd> / right-click on empty space
+  = **repeat the last command**. Draw ten walls without retyping `Line`.
+- <kbd>Esc</kbd> = **cancel** the current command. You will need this
+  constantly. Look up when confused; the command line will tell you what
+  Rhino is waiting for.
+- <kbd>F1</kbd> = **help on the command you are in the middle of**.
+  Better than any web search, especially for command options.
+- **`Ctrl+S` every five minutes.** Rhino crashes. Not often, but every
+  student loses at least one afternoon of unsaved work per term.
+
+That is the whole beginner surface. The rest of this page unpacks what
+each of those commands actually did and why.
+
 ---
 
 ## 1. Why Rhino, and not Revit

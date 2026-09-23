@@ -8,6 +8,60 @@ underneath it.**
 
 ---
 
+## 0. The 5-minute massing loop
+
+Before curve-of-the-week: a worked example of a mass model in five minutes,
+from scratch. Do this once on your own machine; the rest of the page unpacks
+what each step did and why. If you are new to Rhino, this is where "making
+something in Rhino" first becomes concrete.
+
+**A tiny building** — one room, 6 × 4 m, 3 m high, a door.
+
+```
+1.  Set units to metres, tolerance 0.001         Units
+2.  Draw the footprint                            Rectangle  →  6<Enter> 4<Enter>
+3.  Give the wall thickness                       OffsetCrv  →  0.2 inside
+    (you now have two rectangles: outer + inner)
+4.  Turn the two into a floor slab                CurveBoolean → the wall region
+    (or PlanarSrf on each and BooleanDifference — either works)
+5.  Extrude the wall up                           ExtrudeCrv → 3<Enter>
+    (make sure the "Solid" option is Yes — walls should be closed polysurfaces)
+6.  Cut a door                                    Rectangle in Front view (0.9 × 2.1),
+                                                  ExtrudeCrv through the wall,
+                                                  BooleanDifference
+7.  Save                                          Ctrl+S
+```
+
+Seven commands. **That is the rapid-massing loop**: draw → offset → extrude
+→ boolean. Every mass model of any complexity is that loop repeated with
+different curves.
+
+Two things to notice while it happens:
+
+- **The Perspective viewport updates as you draw in Top.** You do not need
+  to switch views to see the 3D consequence. This is why architects reach
+  for Rhino for early massing — the drawing hand and the checking eye run
+  at once.
+- **Every step you just did is a command name you can retype tomorrow.**
+  There is no dialog you have to remember was under which menu. That is
+  what the rest of the week is about: knowing which command to reach for.
+
+### From massing to detailing — the through-line
+
+The mass you just made is at 1:200. To take it to detailing you refine:
+
+- **`Fillet` / `Chamfer`** the corners for a shoulder or a bevel (§3)
+- **`ExtrudeSrf`** or **`OffsetSrf`** to give the roof a thickness
+- **`Split` / `Trim`** in real openings, not just boolean holes
+- Bring in **section curves** and `Loft` them for a doubly-curved element (§2)
+- **Week 04** turns the model into drawings — plans, sections, dimensions,
+  layouts, PDFs
+
+The commands below are the ones you reach for as you go from massing to
+detailing. Everything in this week is a variation on the loop above.
+
+---
+
 ## 1. Curves worth knowing
 
 | Command | For |
