@@ -1,6 +1,6 @@
 # Week 07 — goals
 
-*Data trees I*
+*A twisting tower* · 🔹 **Standalone build**
 
 > A goal is a **data flow**, not a list of components. It says what has to
 > happen, not how. Two people building the same goal will produce different
@@ -10,56 +10,95 @@ You will not be given a `.gh` file for these. [Reading one teaches nothing and t
 
 ---
 
-## Goal 1 — A grid of points, flat
+## The goal
 
-**Together.** I build, you build, at the same time.
-
-```mermaid
-flowchart LR
-    S["a surface"] --> U["divide U into nu"]
-    S --> V["divide V into nv"]
-    U --> P["all points, one flat list"]
-    V --> P
-```
-
-*Build it the naive way first, so you can feel what is missing.*
-
----
-
-## Goal 2 — The same grid, as a tree
-
-**In pairs.** One drives, one navigates. Swap halfway.
+A 30-storey tower whose square floor plates rotate and taper upward, with a skin and, if we can, vertical mullions.
 
 ```mermaid
 flowchart LR
-    S["a surface"] --> G["divide into a UV grid"]
-    G --> T["points, grouped:<br/>one branch per row"]
-    T --> V["read the paths<br/>in the Param Viewer"]
+    F0["one floor plate"]
+    H1["floor heights"]
+    M2["plates moved up"]
+    R3["rotated + scaled per floor"]
+    L4["lofted skin"]
+    U5["mullions?"]
+    F0 --> H1 --> M2 --> R3 --> L4 --> U5
 ```
 
-*One branch per row. Same points, entirely different behaviour downstream.*
+## How we build it
+
+We build stage by stage, together. At each 🗳️ I stop: everyone votes on what goes next, *then* we build it, and the options that lost get discussed, because a wrong answer you can explain is worth more than a right one you guessed. The answers are folded away below each poll. Open them after the vote, not before.
 
 ---
 
-## Goal 3 — A circle at each point, sized by row
-
-**Alone.** From the diagram only. ~15 minutes, then compare.
+### Stage 1 — Stack the floors
 
 ```mermaid
 flowchart LR
-    T["points, one branch per row"] --> N["a radius per row"]
-    N --> C["a circle at each point"]
-    T --> C
+    F0["a square"]
+    H1["Series of heights"]
+    M2["Move along Z"]
+    F0 --> H1 --> M2
 ```
 
-*The payoff: because the data is grouped by row, a per-row value just works.*
+> 🗳️ **Poll 1** — *We have one square and 30 heights. How do we get 30 squares?*
+>
+> **A.** Move, with a Series into the Z of a vector · **B.** Copy in Rhino 30 times · **C.** Array Linear · **D.** Loft
+
+<details><summary>After the vote</summary>
+
+**We take: Move, with a Series into the Z of a vector.** One geometry and a list of 30 vectors gives 30 results, because Grasshopper matches lists. Array Linear works too (and is worth knowing); copying in Rhino defeats the point of the session. Loft comes later and needs the curves first.
+
+</details>
 
 ---
 
-## When you are done
+### Stage 2 — Twist and taper
 
-Three definitions that satisfy three flows. None of them is *the* answer —
-compare with the person next to you and find out where you disagreed.
+```mermaid
+flowchart LR
+    M0["30 plates"]
+    A1["angles: Series"]
+    R2["Rotate about each centre"]
+    S3["Scale"]
+    M0 --> A1 --> R2 --> S3
+```
 
-If you finish early: break one. Change an input until it fails, and say
-which part of the flow could not cope.
+> 🗳️ **Poll 2** — *Rotate needs a centre plane per floor. Where does it come from?*
+>
+> **A.** World XY plane · **B.** Area (its centroid) → a plane · **C.** a referenced point · **D.** the plate's start point
+
+<details><summary>After the vote</summary>
+
+**We take: Area (its centroid) → a plane.** Area returns each plate's centroid: 30 centres for 30 plates, computed, not typed. World XY rotates every floor about the ground origin and swings the tower off its base. A referenced point is one centre for all, which is only right while the plates are concentric.
+
+</details>
+
+---
+
+### Stage 3 — Skin, then the cliffhanger
+
+```mermaid
+flowchart LR
+    R0["twisted plates"]
+    L1["Loft"]
+    D2["Divide each plate into 12"]
+    P3["Polyline through the points…"]
+    R0 --> L1 --> D2 --> P3
+```
+
+> 🗳️ **Poll 3** — *We divide every plate into 12 points and want 12 vertical mullions. What do we connect?*
+>
+> **A.** Polyline straight from Divide Curve · **B.** Interpolate · **C.** Line · **D.** we need something else
+
+<details><summary>After the vote</summary>
+
+**We take: we need something else.** Wire Divide Curve straight into Polyline and you get 30 horizontal rings, not 12 verticals: the points are organised *by floor*, and we need them *by column*. Look at the wire: it has gone dashed. That is a **data tree**, and turning floors into columns is a tree operation. Next week. Leave the definition exactly as it is and bring it.
+
+</details>
+
+---
+
+## After the session
+
+Rebuild it on **your strip**, from the diagrams only. If it only works on the class example, you built a drawing with sliders attached.

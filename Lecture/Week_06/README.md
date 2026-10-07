@@ -1,27 +1,28 @@
 # Week 06 — Lists, ranges, and the index
 
-Series, range, item — and the off-by-one that eats an afternoon.
+🧱 **Class build** · part 1 of 5
+
+The class facade begins: from a strip of the base building to a grid of bays, and the index as a design parameter.
 
 ## What this session covers
 
-- `Series` vs `Range`, and which one you actually wanted
-- `List Item`, negative indices, and what happens past the end
-- `Cull`, `Shift`, `Dispatch`, `Weave`
-- the index as a design parameter: driving something by position in a list
+- `Series` vs `Range`, and picking the right one
+- indexing: negative indices, going past the end, wrapping
+- the index as a design parameter: every *n*th bay is different
+- list length as the first sanity check
 
 ## In the room
 
-**Three goals**, each stated as a data flow — see [`goals.md`](/Lecture/Week_06/goals.md).
-Built together, then in pairs, then alone. Goal 3 is the one that does the
-work; see [the format](/README.md#three-goals).
+**Today's goal:** A south strip of the base building, divided into structural bays; every third bay gets a different louvre spacing.
 
-You will not be given a `.gh` file. [Reading one teaches nothing, and the
-building is the skill](https://kb.rccn.dev/computation/rhino-grasshopper/grasshopper/describing-a-definition).
+We build it together, live, from the data flow in [`goals.md`](/Lecture/Week_06/goals.md). At **3 critical points** I stop and you vote on what we place next (🗳️ in `goals.md`, polls run on `TBC-POLL-TOOL`), then we argue about the result before anyone touches the canvas. See [how the builds work](/README.md#how-the-builds-work).
+
+You will not be given a `.gh` file. [Reading one teaches nothing, and the building is the skill](https://kb.rccn.dev/computation/rhino-grasshopper/grasshopper/describing-a-definition).
 
 ## Homework
 
-- Build all three goals
-- Drive one thing in your project strip by index
+- Rebuild the class definition on **your** strip, without looking
+- Drive one thing in your strip by index, and write one sentence on why that index
 
 ## Commands
 
@@ -30,6 +31,8 @@ The commands this week centres on. If one of these is not covered by the prose a
 ```
 Series
 Range
+Divide Length
+Divide Curve
 List Item
 List Length
 Cull Pattern
@@ -45,6 +48,7 @@ Read before class; we will not spend session time on it.
 
 - [rccn wiki → grasshopper/data-types](https://kb.rccn.dev/computation/rhino-grasshopper/grasshopper/data-types)
 - [rccn wiki → grasshopper/numbers-logic-expressions](https://kb.rccn.dev/computation/rhino-grasshopper/grasshopper/numbers-logic-expressions)
+- [rccn wiki → grasshopper/describing-a-definition](https://kb.rccn.dev/computation/rhino-grasshopper/grasshopper/describing-a-definition)
 
 ---
 
