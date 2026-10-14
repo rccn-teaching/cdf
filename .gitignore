@@ -38,6 +38,9 @@ Lecture/*/submission/*.3dmbak
 *.fbx
 !Reference/**/*.obj
 
+# Instructor-only material: run-sheets, poll banks with the answers showing
+Lecture/*/instructor/
+
 # AI assistant guidance
 CLAUDE.md
 claude.md
